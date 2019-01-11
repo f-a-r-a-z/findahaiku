@@ -1,0 +1,31 @@
+{
+  "name": "findahaiku",
+  "version": "1.0.0",
+  "description": "Find and detect haikus in Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/f-a-r-a-z/findahaiku.git"
+  },
+  "keywords": [
+    "haikus",
+    "haiku",
+    "detect",
+    "detector",
+    "detection",
+    "find",
+    "look",
+    "for",
+    "format",
+    "dictionary"
+  ],
+  "author": "f-a-r-a-z",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/f-a-r-a-z/findahaiku/issues"
+  },
+  "homepage": "https://github.com/f-a-r-a-z/findahaiku#readme"
+}
