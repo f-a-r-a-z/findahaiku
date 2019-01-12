@@ -4,7 +4,7 @@
   "description": "Find and detect haikus in Node.js",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node node_modules/eslint/bin/eslint *.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,11 @@
   },
   "homepage": "https://github.com/f-a-r-a-z/findahaiku#readme",
   "dependencies": {
-    "cmu-pronouncing-dictionary": "^1.0.3",
+    "cmu-pronouncing-dictionary": "^1.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
   }
 }

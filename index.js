@@ -1,16 +1,46 @@
-
-module.exports = {
-    
-};
-
-
 // cmu-pronouncing-dictionary uses ARPABET phonetic transcription
 // Read more: https://en.wikipedia.org/wiki/ARPABET
 const pronounciations = require('cmu-pronouncing-dictionary');
 
-
-function syllables(word) {
-    const phoneticTranscription = pronounciations[word] || "";
-    const stresses = phoneticTranscription.match(/[0-9]/g) || [];
-    return stresses.length;
+// Removes punctuation at the end and start of a word
+function removePunctuation(word) {
+  return word.replace(/^([^A-Za-z]+)|([^A-Za-z]+)$/g, '');
 }
+
+function syllables(word = '') {
+  const phoneticTranscription = pronounciations[word] || '';
+  const stresses = phoneticTranscription.match(/[0-9]/g) || [];
+  return stresses.length;
+}
+
+function isHaiku(sentence = '') {
+  const wordArray = sentence.split(' ') || [];
+  if (wordArray.length < 3 || wordArray.length > 17) return false;
+
+  const wordArraySyllables = wordArray.map(word => syllables(removePunctuation(word)));
+
+  // If a word is unrecognized, a haiku cannot be made:
+  if (wordArraySyllables.includes(0)) return false;
+
+  let currentLineSyllables = 0;
+  let currentSentence = 0;
+  const lineSyllables = [5, 7, 5];
+
+  for (let i = 0; i < wordArraySyllables.length; i += 1) {
+    currentLineSyllables += wordArraySyllables[i];
+
+    if (currentLineSyllables === lineSyllables[currentSentence]) {
+      currentSentence += 1;
+      currentLineSyllables = 0;
+    } else if (currentLineSyllables >= lineSyllables[currentSentence]) {
+      return false;
+    }
+  }
+
+  if (sentence === 3 && currentLineSyllables === 0) return true;
+  return false;
+}
+
+module.exports = {
+  isHaiku,
+};
