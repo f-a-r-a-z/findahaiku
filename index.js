@@ -2,6 +2,10 @@
 // Read more: https://en.wikipedia.org/wiki/ARPABET
 const pronounciations = require('cmu-pronouncing-dictionary');
 
+function isString(string) {
+  return typeof string === 'string';
+}
+
 // Removes punctuation at the end and start of a word
 // Punctuation in the middle of word may be neccessary to recognise the word e.g. isn't vs isnt
 function removePunctuation(word) {
@@ -14,7 +18,8 @@ function syllables(word = '') {
   return stresses.length;
 }
 
-function isHaiku(sentence = '') {
+function isHaiku(sentence) {
+  if (!isString(sentence)) throw new TypeError('isHaiku expects string input, recieved', typeof sentence);
   const wordArray = sentence.split(' ') || [];
   if (wordArray.length < 3 || wordArray.length > 17) return false;
 

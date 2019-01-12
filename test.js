@@ -39,8 +39,16 @@ describe('findahaiku', function() {
       assert.equal(false, haiku.isHaiku(''));
     });
 
-    it('should reject no input', function() {
-      assert.equal(false, haiku.isHaiku(''));
+    it('should throw error when given no input', function() {
+      assert.throws(function() {
+        haiku.isHaiku();
+      }, TypeError);
+    });
+
+    it('should throw error when given numerical input', function() {
+      assert.throws(function() {
+        haiku.isHaiku(91891);
+      }, TypeError);
     });
   });
 });
