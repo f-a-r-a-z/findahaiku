@@ -18,17 +18,18 @@ function isHaiku(sentence = '') {
   const wordArray = sentence.split(' ') || [];
   if (wordArray.length < 3 || wordArray.length > 17) return false;
 
-  const wordArraySyllables = wordArray.map(word => syllables(removePunctuation(word)));
+  const cleanedWords = wordArray.map(word => removePunctuation(word).toLowerCase());
+  const cleanedWordsSyllables = cleanedWords.map(word => syllables(word));
 
-  // If a word is unrecognized, a haiku cannot be made:
-  if (wordArraySyllables.includes(0)) return false;
+  // If a word is unrecognized, a haiku cannot be made
+  if (cleanedWordsSyllables.includes(0)) return false;
 
   let currentLineSyllables = 0;
   let currentSentence = 0;
   const lineSyllables = [5, 7, 5];
 
-  for (let i = 0; i < wordArraySyllables.length; i += 1) {
-    currentLineSyllables += wordArraySyllables[i];
+  for (let i = 0; i < cleanedWordsSyllables.length; i += 1) {
+    currentLineSyllables += cleanedWordsSyllables[i];
 
     if (currentLineSyllables === lineSyllables[currentSentence]) {
       currentSentence += 1;
