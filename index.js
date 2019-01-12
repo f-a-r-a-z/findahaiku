@@ -3,6 +3,7 @@
 const pronounciations = require('cmu-pronouncing-dictionary');
 
 // Removes punctuation at the end and start of a word
+// Punctuation in the middle of word may be neccessary to recognise the word e.g. isn't vs isnt
 function removePunctuation(word) {
   return word.replace(/^([^A-Za-z]+)|([^A-Za-z]+)$/g, '');
 }
@@ -37,7 +38,7 @@ function isHaiku(sentence = '') {
     }
   }
 
-  if (sentence === 3 && currentLineSyllables === 0) return true;
+  if (currentSentence === 3 && currentLineSyllables === 0) return true;
   return false;
 }
 
