@@ -32,7 +32,7 @@ function isHaiku(sentence) {
     }
   }
 
-  if (currentSentence === 3 && currentLineSyllables === 0) return true;
+  if (currentSentence === lineSyllables.length && currentLineSyllables === 0) return true;
   return false;
 }
 
