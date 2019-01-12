@@ -1,22 +1,10 @@
+module.exports = {
+  isHaiku,
+};
+
 // cmu-pronouncing-dictionary uses ARPABET phonetic transcription
 // Read more: https://en.wikipedia.org/wiki/ARPABET
 const pronounciations = require('cmu-pronouncing-dictionary');
-
-function isString(string) {
-  return typeof string === 'string';
-}
-
-// Removes punctuation at the end and start of a word
-// Punctuation in the middle of word may be neccessary to recognise the word e.g. isn't vs isnt
-function removePunctuation(word) {
-  return word.replace(/^([^A-Za-z]+)|([^A-Za-z]+)$/g, '');
-}
-
-function syllables(word = '') {
-  const phoneticTranscription = pronounciations[word] || '';
-  const stresses = phoneticTranscription.match(/[0-9]/g) || [];
-  return stresses.length;
-}
 
 function isHaiku(sentence) {
   if (!isString(sentence)) throw new TypeError('isHaiku expects string input, recieved', typeof sentence);
@@ -48,6 +36,21 @@ function isHaiku(sentence) {
   return false;
 }
 
-module.exports = {
-  isHaiku,
-};
+//
+//      Helper Functions
+//
+function isString(string) {
+  return typeof string === 'string';
+}
+
+// Removes punctuation at the end and start of a word
+// Punctuation in the middle of word may be neccessary to recognise the word e.g. isn't vs isnt
+function removePunctuation(word) {
+  return word.replace(/^([^A-Za-z]+)|([^A-Za-z]+)$/g, '');
+}
+
+function syllables(word = '') {
+  const phoneticTranscription = pronounciations[word] || '';
+  const stresses = phoneticTranscription.match(/[0-9]/g) || [];
+  return stresses.length;
+}
