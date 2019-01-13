@@ -36,6 +36,37 @@ function isHaiku(sentence) {
   return false;
 }
 
+function formatHaiku(sentence) {
+  // Error checks
+  if (!isString(sentence)) throw new TypeError('formatHaiku expects string input, recieved', typeof sentence);
+  if (!isHaiku(sentence)) throw new Error('formatHaiku expects a valid haiku input, did you mean to use isHaiku?');
+
+  const wordArray = sentence.split(' ') || [];
+
+  const cleanedWords = wordArray.map(word => removePunctuation(word).toLowerCase());
+  const cleanedWordsSyllables = cleanedWords.map(word => syllables(word));
+
+  let currentLineSyllables = 0;
+  let currentSentence = 0;
+  const lineSyllables = [5, 7, 5];
+  let haiku = "";
+
+  for (let i = 0; i < cleanedWordsSyllables.length; i += 1) {
+    currentLineSyllables += cleanedWordsSyllables[i];
+    haiku += wordArray[i];
+
+    if (currentLineSyllables === lineSyllables[currentSentence]) {
+      currentSentence += 1;
+      currentLineSyllables = 0;
+      haiku += "\n";
+    } else {
+      haiku += " ";
+    }
+  }
+
+  return haiku;
+}
+
 //
 //      Helper Functions
 //
