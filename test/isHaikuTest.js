@@ -1,8 +1,8 @@
 const assert = require('assert');
-const haiku = require('./index.js');
+const haiku = require('.././index.js');
 
 describe('findahaiku', function() {
-  describe('isHaiku()', function() {
+  describe('isHaiku(sentence)', function() {
     it('should detect a basic haiku (lowercase)', function() {
       assert.equal(true, haiku.isHaiku('an old silent pond a frog jumps into the pond splash silence again'));
     });
@@ -13,6 +13,10 @@ describe('findahaiku', function() {
 
     it('should detect a basic haiku (mixed case)', function() {
       assert.equal(true, haiku.isHaiku('Pungent break of dAY A largE wEIrd AnTEATEr slEepS BeTrAYEd By tHE BirD'));
+    });
+
+    it('should reject a basic haiku with words not in dictionary (lowercase)', function() {
+      assert.equal(false, haiku.isHaiku('yab yab yab yab yab yab yab yab yab yab yab yab yab yab yab yab yab'));
     });
 
     it('should reject a non-haiku with less than 17 syllables (lowercase)', function() {
@@ -35,6 +39,22 @@ describe('findahaiku', function() {
       assert.equal(true, haiku.isHaiku("I didn't do it, I swear! Please don't let this be! I won't forgive this..."));
     });
 
+    it('should ignore newlines in the sentence', function() {
+      assert.equal(true, haiku.isHaiku("\nan old silent pond\n\na frog jumps into the pond\nsplash silence again"));
+    });
+
+    it('should ignore tabs and newlines in the sentence', function() {
+      assert.equal(true, haiku.isHaiku("\t\tan old silent pond\n\t\ta frog jumps into the pond\n\t\tsplash silence again"));
+    });
+
+    it('should ignore multiple spaces in the sentence', function() {
+      assert.equal(true, haiku.isHaiku(" an       old silent   pond  a frog  jumps into the pond   splash silence   again"));
+    });
+
+    it('should ignore punctuation by itself in the sentence', function() {
+      assert.equal(true, haiku.isHaiku("an old silent pond . a frog jumps into the pond . splash ! silence again ..."));
+    });
+
     it('should reject an empty string', function() {
       assert.equal(false, haiku.isHaiku(''));
     });
@@ -48,6 +68,18 @@ describe('findahaiku', function() {
     it('should throw error when given numerical input', function() {
       assert.throws(function() {
         haiku.isHaiku(91891);
+      }, TypeError);
+    });
+
+    it('should throw error when given boolean input', function() {
+      assert.throws(function() {
+        haiku.isHaiku(false);
+      }, TypeError);
+    });
+
+    it('should throw error when given object input', function() {
+      assert.throws(function() {
+        haiku.isHaiku({"abc": 123});
       }, TypeError);
     });
   });
