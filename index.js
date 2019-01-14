@@ -13,7 +13,7 @@ function isHaiku(sentence) {
   if (wordArray.length < 3 || wordArray.length > 17) return false;
 
   const cleanedWords = wordArray.map(word => removePunctuation(word).toLowerCase());
-  const cleanedWordsSyllables = cleanedWords.map(word => syllables(word));
+  const cleanedWordsSyllables = cleanedWords.map(word => getSyllables(word));
 
   // If a word is unrecognized, a haiku cannot be made
   if (cleanedWordsSyllables.includes(0)) return false;
@@ -45,7 +45,7 @@ function formatHaiku(sentence) {
   const wordArray = sentence.split(' ') || [];
 
   const cleanedWords = wordArray.map(word => removePunctuation(word).toLowerCase());
-  const cleanedWordsSyllables = cleanedWords.map(word => syllables(word));
+  const cleanedWordsSyllables = cleanedWords.map(word => getSyllables(word));
 
   let currentLineSyllables = 0;
   let currentSentence = 0;
@@ -81,7 +81,7 @@ function removePunctuation(word) {
   return word.replace(/^([^A-Za-z]+)|([^A-Za-z]+)$/g, '');
 }
 
-function syllables(word = '') {
+function getSyllables(word = '') {
   const phoneticTranscription = pronounciations[word] || '';
   const stresses = phoneticTranscription.match(/[0-9]/g) || [];
   return stresses.length;
