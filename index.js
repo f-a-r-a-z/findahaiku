@@ -59,7 +59,7 @@ function formatHaiku(sentence) {
     if (currentLineSyllables === lineSyllables[currentSentence]) {
       currentSentence += 1;
       currentLineSyllables = 0;
-      haiku += '\n';
+      if (currentSentence < lineSyllables.length) haiku += '\n';
     } else {
       haiku += ' ';
     }
