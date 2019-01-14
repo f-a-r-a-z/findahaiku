@@ -83,6 +83,6 @@ function removePunctuation(word) {
 
 function getSyllables(word = '') {
   const phoneticTranscription = pronounciations[word] || '';
-  const stresses = phoneticTranscription.match(/[0-9]/g) || [];
+  const stresses = phoneticTranscription.match(/[0-2]/g) || [];
   return stresses.length;
 }
