@@ -1,5 +1,6 @@
 module.exports = {
   isHaiku,
+  formatHaiku,
 };
 
 // cmu-pronouncing-dictionary uses ARPABET phonetic transcription
