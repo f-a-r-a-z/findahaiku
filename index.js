@@ -49,7 +49,7 @@ function formatHaiku(sentence) {
   let currentLineSyllables = 0;
   let currentSentence = 0;
   const lineSyllables = [5, 7, 5];
-  let haiku = "";
+  let haiku = '';
 
   for (let i = 0; i < cleanedWordsSyllables.length; i += 1) {
     currentLineSyllables += cleanedWordsSyllables[i];
@@ -58,9 +58,9 @@ function formatHaiku(sentence) {
     if (currentLineSyllables === lineSyllables[currentSentence]) {
       currentSentence += 1;
       currentLineSyllables = 0;
-      haiku += "\n";
+      haiku += '\n';
     } else {
-      haiku += " ";
+      haiku += ' ';
     }
   }
 
