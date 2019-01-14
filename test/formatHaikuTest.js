@@ -40,29 +40,29 @@ describe('findahaiku', function() {
 
     it('should remove newlines in the sentence', function() {
       assert.equal(
-        haiku.formatHaiku("\nan old silent pond\n\na frog jumps\ninto the pond\nsplash silence again"),
-        "an old silent pond\na frog jumps into the pond\nsplash silence again"
+        haiku.formatHaiku('\nan old silent pond\n\na frog jumps\ninto the pond\nsplash silence again'),
+        'an old silent pond\na frog jumps into the pond\nsplash silence again'
       );
     });
 
     it('should remove tabs and newlines in the sentence', function() {
       assert.equal(
-        haiku.formatHaiku("\t\tan old silent pond\n\t\ta frog jumps into the pond\n\t\tsplash silence again"),
-        "an old silent pond\na frog jumps into the pond\nsplash silence again"
+        haiku.formatHaiku('\t\tan old silent pond\n\t\ta frog jumps into the pond\n\t\tsplash silence again'),
+        'an old silent pond\na frog jumps into the pond\nsplash silence again'
       );
     });
 
     it('should remove multiple spaces in the sentence', function() {
       assert.equal(
-        haiku.formatHaiku(" an       old silent   pond  a frog  jumps into the pond   splash silence   again"),
-        "an old silent pond\na frog jumps into the pond\nsplash silence again"
+        haiku.formatHaiku(' an       old silent   pond  a frog  jumps into the pond   splash silence   again'),
+        'an old silent pond\na frog jumps into the pond\nsplash silence again'
       );
     });
 
     it('should retain punctuation by itself in the sentence', function() {
       assert.equal(
-        haiku.formatHaiku("an old silent pond . a frog jumps into the pond . splash ! silence again ..."),
-        "an old silent pond .\na frog jumps into the pond .\nsplash ! silence again ..."
+        haiku.formatHaiku('an old silent pond . a frog jumps into the pond . splash ! silence again ...'),
+        'an old silent pond .\na frog jumps into the pond .\nsplash ! silence again ...'
       );
     });
   });
