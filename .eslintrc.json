@@ -2,6 +2,8 @@
     "extends": "airbnb-base",
     "rules": {
         // This allows code arrangement to be cleaner
-        "no-use-before-define": [ 2, { "functions": false } ]
+        "no-use-before-define": [ 2, { "functions": false } ],
+        // Objects defined with `const` can still be modified which can be confusing
+        "prefer-const": 1
     }
 }
