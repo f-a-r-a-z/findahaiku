@@ -1,22 +1,24 @@
 module.exports = {
-  isHaiku,
-  formatHaiku,
+  analyzeText,
 };
 
 // cmu-pronouncing-dictionary uses ARPABET phonetic transcription
 // Read more: https://en.wikipedia.org/wiki/ARPABET
 const pronounciations = require('cmu-pronouncing-dictionary');
 
-function isHaiku(sentence) {
+function analyzeText(sentence) {
   if (!isString(sentence)) throw new TypeError('isHaiku expects string input, recieved', typeof sentence);
+
+  let result = { isHaiku: false, formattedHaiku: '' };
+
   const wordArray = sentence.split(' ') || [];
-  if (wordArray.length < 3 || wordArray.length > 17) return false;
+  if (wordArray.length < 3 || wordArray.length > 17) return result; // Cannot be a haiku
 
   const cleanedWords = wordArray.map(word => removePunctuation(word).toLowerCase());
   const cleanedWordsSyllables = cleanedWords.map(word => getSyllables(word));
 
   // If a word is unrecognized, a haiku cannot be made
-  if (cleanedWordsSyllables.includes(0)) return false;
+  if (cleanedWordsSyllables.includes(0)) return result;
 
   let currentLineSyllables = 0;
   let currentSentence = 0;
@@ -24,48 +26,27 @@ function isHaiku(sentence) {
 
   for (let i = 0; i < cleanedWordsSyllables.length; i += 1) {
     currentLineSyllables += cleanedWordsSyllables[i];
+    result.formattedHaiku += wordArray[i];
 
     if (currentLineSyllables === lineSyllables[currentSentence]) {
       currentSentence += 1;
       currentLineSyllables = 0;
+      if (currentSentence < lineSyllables.length) result.formattedHaiku += '\n';
     } else if (currentLineSyllables >= lineSyllables[currentSentence]) {
-      return false;
-    }
-  }
-
-  if (currentSentence === lineSyllables.length && currentLineSyllables === 0) return true;
-  return false;
-}
-
-function formatHaiku(sentence) {
-  // Error checks
-  if (!isString(sentence)) throw new TypeError('formatHaiku expects string input, recieved', typeof sentence);
-  if (!isHaiku(sentence)) throw new Error('formatHaiku expects a valid haiku input, did you mean to use isHaiku?');
-
-  const wordArray = sentence.split(' ') || [];
-
-  const cleanedWords = wordArray.map(word => removePunctuation(word).toLowerCase());
-  const cleanedWordsSyllables = cleanedWords.map(word => getSyllables(word));
-
-  let currentLineSyllables = 0;
-  let currentSentence = 0;
-  const lineSyllables = [5, 7, 5];
-  let haiku = '';
-
-  for (let i = 0; i < cleanedWordsSyllables.length; i += 1) {
-    currentLineSyllables += cleanedWordsSyllables[i];
-    haiku += wordArray[i];
-
-    if (currentLineSyllables === lineSyllables[currentSentence]) {
-      currentSentence += 1;
-      currentLineSyllables = 0;
-      if (currentSentence < lineSyllables.length) haiku += '\n';
+      result.formattedHaiku = '';
+      return result; // Cannot be a haiku
     } else {
-      haiku += ' ';
+      result.formattedHaiku += ' ';
     }
   }
 
-  return haiku;
+  if (currentSentence === lineSyllables.length && currentLineSyllables === 0) {
+    result.isHaiku = true;
+  } else {
+    result.formattedHaiku = '';
+  }
+
+  return result;
 }
 
 //
