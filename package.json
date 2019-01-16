@@ -1,6 +1,6 @@
 {
   "name": "findahaiku",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Find and detect haikus in Node.js",
   "main": "index.js",
   "scripts": {
