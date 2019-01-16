@@ -17,7 +17,7 @@ function analyzeText(sentence) {
   if (wordArray.length < 3 || wordArray.length > 17) return result; // Cannot be a haiku
 
   const cleanedWords = wordArray.map(cleanWord)
-    .filter(word => !(/^[^a-zA-Z]*$/g.test(word))); // Does not have any characters
+    .filter(word => !(/^(\W)*$/g.test(word))); // Does not have any characters
 
   const cleanedWordsSyllables = cleanedWords.map(getSyllables);
 
@@ -76,7 +76,7 @@ function cleanSentence(sentence = '') {
 // Removes punctuation at the end and start of a word
 // Punctuation in the middle of word may be neccessary to recognise the word e.g. isn't vs isnt
 function removePunctuation(word) {
-  return word.replace(/^([^A-Za-z]+)|([^A-Za-z]+)$/g, '');
+  return word.replace(/^(\W+)|(\W+)$/g, '');
 }
 
 function getSyllables(word = '') {
