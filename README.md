@@ -17,6 +17,8 @@ console.log(formattedHaiku); // "I didn't do it,\nI swear! Please don't let this
 ````
 
 # Testing
+These are instructions for if you want to download the source code and run tests on it.
+
 First clone the git repository and `cd` into its folder:
 
     git clone https://github.com/f-a-r-a-z/findahaiku.git foldername
