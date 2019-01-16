@@ -11,15 +11,11 @@ function analyzeText(sentence) {
 
   let result = { isHaiku: false, formattedHaiku: '' };
 
-  const cleanedSentence = cleanSentence(sentence);
-  const wordArray = cleanedSentence.split(' ') || [];
-
+  const wordArray = sentence.split(' ') || [];
   if (wordArray.length < 3 || wordArray.length > 17) return result; // Cannot be a haiku
 
-  const cleanedWords = wordArray.map(cleanWord)
-    .filter(word => !(/^[^a-zA-Z]*$/g.test(word))); // Does not have any characters
-
-  const cleanedWordsSyllables = cleanedWords.map(getSyllables);
+  const cleanedWords = wordArray.map(word => removePunctuation(word).toLowerCase());
+  const cleanedWordsSyllables = cleanedWords.map(word => getSyllables(word));
 
   // If a word is unrecognized, a haiku cannot be made
   if (cleanedWordsSyllables.includes(0)) return result;
@@ -58,19 +54,6 @@ function analyzeText(sentence) {
 //
 function isString(string) {
   return typeof string === 'string';
-}
-
-// Removes input that will prevent word from being recognised in dictionary
-function cleanWord(word = '') {
-  return removePunctuation(word).toLowerCase();
-}
-
-// Removes input that will prevent sentence from forming a haiku
-function cleanSentence(sentence = '') {
-  return sentence.replace(/\r\n|\r|\n/gm, ' ') // remove newlines
-    .replace(/\t/g, '') // remove tabs
-    .replace(/\s\s+/g, ' ') // Remove excessive spaces
-    .trim();
 }
 
 // Removes punctuation at the end and start of a word
