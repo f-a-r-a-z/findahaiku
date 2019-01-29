@@ -21,22 +21,6 @@ const testCases = [
   { title: 'should retain punctuation in the middle of words',
     input: "I didn't do it, I swear! Please don't let this be! I won't forgive this...",
     returns: "I didn't do it,\nI swear! Please don't let this be!\nI won't forgive this..." },
-
-  { title: 'should remove newlines in the sentence',
-    input: '\nan old silent pond\n\na frog jumps into the pond\nsplash silence again',
-    returns: 'an old silent pond\na frog jumps into the pond\nsplash silence again' },
-
-  { title: 'should ignore tabs, newlines and carriage returns in the sentence',
-    input: '\t\tan old silent\r\npond\n\t\ta frog jumps into the pond\n\t\tsplash silence again',
-    returns: 'an old silent pond\na frog jumps into the pond\nsplash silence again' },
-
-  { title: 'should remove multiple spaces in the sentence',
-    input: ' an       old silent   pond  a frog  jumps into the pond   splash silence   again',
-    returns: 'an old silent pond\na frog jumps into the pond\nsplash silence again' },
-
-  { title: 'should retain punctuation by itself in the sentence',
-    input: 'an old silent pond . a frog jumps into the pond . splash ! silence again ...',
-    returns: 'an old silent pond .\na frog jumps into the pond .\nsplash ! silence again ...' },
 ];
 
 describe('findahaiku', function() {

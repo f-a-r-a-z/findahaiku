@@ -38,22 +38,6 @@ const testCases = [
     input: "I didn't do it, I swear! Please don't let this be! I won't forgive this...",
     returns: true },
 
-  { title: 'should ignore newlines in the sentence',
-    input: '\nan old silent pond\n\na frog jumps into the pond\nsplash silence again',
-    returns: true },
-
-  { title: 'should ignore tabs, newlines and carriage returns in the sentence',
-    input: '\t\tan old silent\r\npond\n\t\ta frog jumps into the pond\n\t\tsplash silence again',
-    returns: true },
-
-  { title: 'should ignore multiple spaces in the sentence',
-    input: ' an       old silent   pond  a frog  jumps into the pond   splash silence   again',
-    returns: true },
-
-  { title: 'should ignore punctuation by itself in the sentence',
-    input: 'an old silent pond . a frog jumps into the pond . splash ! silence again ...',
-    returns: true },
-
   { title: 'should reject an empty string',
     input: '',
     returns: false },
