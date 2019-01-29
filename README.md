@@ -31,6 +31,3 @@ Then install dependencies:
 Finally, call the testing script:
 
     npm test
-
-# Known Issues
-Punctuation on its own (e.g. "Hello , world") will cause the formatted haiku to be missing words on the end. It will still be able to detect the haiku correctly.
