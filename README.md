@@ -18,8 +18,8 @@ console.log(formattedHaiku); // "I didn't do it,\nI swear! Please don't let this
 
 ## Input Requirements
 The input is expected to be a properly formatted sentence, otherwise `isHaiku` will be `false`. A properly formatted sentence follows the following rules:
-- No extra spaces (e.g. "Hello   world" is invalid)
-- No lone punctuation (e.g. "Hi , how are you" is invalid)
+- No extra spaces (e.g. "Hello&nbsp;&nbsp;&nbsp;&nbsp;world" is invalid)
+- No lone punctuation (e.g. "Hi , how 'are' you" is invalid)
 - Spaces after punctuation (e.g. "Hello, I'm good. How are you?" is valid)
 - Valid spelling (e.g. "Gud mornin" is invalid)
 
