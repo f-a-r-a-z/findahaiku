@@ -7,8 +7,6 @@ module.exports = {
 const pronounciations = require('cmu-pronouncing-dictionary');
 
 function analyzeText(sentence) {
-  if (!isString(sentence)) throw new TypeError('findahaiku.analyzeText expects string input, recieved ' + typeof sentence);
-
   let result = { isHaiku: false, formattedHaiku: '' };
 
   const wordArray = sentence.split(' ') || [];
