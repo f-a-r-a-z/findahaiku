@@ -50,29 +50,5 @@ describe('findahaiku', function() {
         assert.equal(haiku.analyzeText(testCase.input).isHaiku, testCase.returns);
       });
     });
-
-    it('should throw error when given no input', function() {
-      assert.throws(function() {
-        haiku.analyzeText();
-      }, TypeError);
-    });
-
-    it('should throw error when given numerical input', function() {
-      assert.throws(function() {
-        haiku.analyzeText(91891);
-      }, TypeError);
-    });
-
-    it('should throw error when given boolean input', function() {
-      assert.throws(function() {
-        haiku.analyzeText(false);
-      }, TypeError);
-    });
-
-    it('should throw error when given object input', function() {
-      assert.throws(function() {
-        haiku.analyzeText({"abc": 123});
-      }, TypeError);
-    });
   });
 });
