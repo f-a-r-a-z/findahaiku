@@ -32,8 +32,7 @@ function analyzeText(sentence) {
       currentLineSyllables = 0;
       if (currentLine < lineSyllables.length) result.formattedHaiku += '\n';
     } else if (currentLineSyllables >= lineSyllables[currentLine]) {
-      result.formattedHaiku = '';
-      return result; // Cannot be a haiku
+      break;
     } else {
       result.formattedHaiku += ' ';
     }
@@ -51,9 +50,6 @@ function analyzeText(sentence) {
 //
 //      Helper Functions
 //
-function isString(string) {
-  return typeof string === 'string';
-}
 
 // Removes input that will prevent word from being recognised in dictionary
 function cleanWord(word = '') {
