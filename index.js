@@ -28,10 +28,12 @@ function analyzeText(sentence) {
     result.formattedHaiku += wordArray[i];
 
     if (currentLineSyllables === lineSyllables[currentLine]) {
+      // Reached end of the haiku's line
       currentLine += 1;
       currentLineSyllables = 0;
       if (currentLine < lineSyllables.length) result.formattedHaiku += '\n';
     } else if (currentLineSyllables >= lineSyllables[currentLine]) {
+      // Haiku line has too many syllables
       break;
     } else {
       result.formattedHaiku += ' ';
