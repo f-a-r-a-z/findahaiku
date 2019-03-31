@@ -14,25 +14,24 @@ function analyzeText(sentence) {
   if (wordArray.length < 3 || wordArray.length > 17) return result; // Cannot be a haiku
 
   const cleanedWords = wordArray.map(cleanWord);
-
   const cleanedWordsSyllables = cleanedWords.map(getSyllables);
 
   // If a word is unrecognized, a haiku cannot be made
   if (cleanedWordsSyllables.includes(0)) return result;
 
   let currentLineSyllables = 0;
-  let currentSentence = 0;
+  let currentLine = 0;
   const lineSyllables = [5, 7, 5];
 
   for (let i = 0; i < cleanedWordsSyllables.length; i += 1) {
     currentLineSyllables += cleanedWordsSyllables[i];
     result.formattedHaiku += wordArray[i];
 
-    if (currentLineSyllables === lineSyllables[currentSentence]) {
-      currentSentence += 1;
+    if (currentLineSyllables === lineSyllables[currentLine]) {
+      currentLine += 1;
       currentLineSyllables = 0;
-      if (currentSentence < lineSyllables.length) result.formattedHaiku += '\n';
-    } else if (currentLineSyllables >= lineSyllables[currentSentence]) {
+      if (currentLine < lineSyllables.length) result.formattedHaiku += '\n';
+    } else if (currentLineSyllables >= lineSyllables[currentLine]) {
       result.formattedHaiku = '';
       return result; // Cannot be a haiku
     } else {
@@ -40,7 +39,7 @@ function analyzeText(sentence) {
     }
   }
 
-  if (currentSentence === lineSyllables.length && currentLineSyllables === 0) {
+  if (currentLine === lineSyllables.length && currentLineSyllables === 0) {
     result.isHaiku = true;
   } else {
     result.formattedHaiku = '';
