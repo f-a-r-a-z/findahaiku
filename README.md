@@ -1,5 +1,5 @@
 # Find and Format Haikus
-This is the source code for the findahaiku Node.js package which can be used to detect and format haikus by making use of the [CMU Pronouncing Dictionary](https://en.wikipedia.org/wiki/CMU_Pronouncing_Dictionary).
+This is the source code for the findahaiku Node.js package which can be used to detect and format haikus by making use of the [CMU Pronouncing Dictionary](https://en.wikipedia.org/wiki/CMU_Pronouncing_Dictionary). Note that this takes up 4MB of space.
 
 # Installation
 To install use the command:
