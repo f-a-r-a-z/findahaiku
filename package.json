@@ -9,7 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/f-a-r-a-z/findahaiku.git"
+    "url": "https://github.com/f-a-r-a-z/findahaiku.git"
+  },
+  "engines": {
+    "node": ">=6"
   },
   "keywords": [
     "haikus",
@@ -25,10 +28,6 @@
   ],
   "author": "f-a-r-a-z",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/f-a-r-a-z/findahaiku/issues"
-  },
-  "homepage": "https://github.com/f-a-r-a-z/findahaiku#readme",
   "dependencies": {
     "cmu-pronouncing-dictionary": "^1.0.3"
   },
