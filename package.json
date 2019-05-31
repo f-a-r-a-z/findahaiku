@@ -4,7 +4,7 @@
   "description": "Find and detect haikus in Node.js",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha && npm run lint",
     "lint": "eslint index.js"
   },
   "repository": {
