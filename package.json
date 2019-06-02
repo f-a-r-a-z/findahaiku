@@ -12,7 +12,7 @@
     "url": "https://github.com/f-a-r-a-z/findahaiku.git"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "files": [
     "index.js"
