@@ -25,6 +25,14 @@ const testCases = [
   { title: 'should remove newlines',
     input: "I\ndidn't\ndo it, I\nswear! Please don't let this be! I won't forgive this...",
     returns: "I didn't do it,\nI swear! Please don't let this be!\nI won't forgive this..." },
+
+  { title: 'should keep lone punctuation',
+    input: "I didn't ... do it, I swear ! Please don't let this be! I won't forgive this... :)",
+    returns: "I didn't ... do it,\nI swear ! Please don't let this be!\nI won't forgive this... :)" },
+
+  { title: 'should give empty string for non-haiku',
+    input: 'an old silent pond a frog jumps into the pond splash silence again but',
+    returns: '' },
 ];
 
 describe('findahaiku', function() {

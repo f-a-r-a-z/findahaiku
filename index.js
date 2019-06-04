@@ -13,29 +13,41 @@ function analyzeText(sentence) {
   let currentLineSyllables = 0;
   let currentLine = 0;
   const lineSyllables = [5, 7, 5];
+  const finishedHaiku = () => currentLine >= lineSyllables.length;
   let i;
 
   for (i = 0; i < wordsWithPunctuation.length; i += 1) {
-    const haikuTooManySyllables = currentLine >= lineSyllables.length;
-    const lineTooManySyllables = currentLineSyllables >= lineSyllables[currentLine];
+    const word = wordsWithPunctuation[i];
+    const currentSyllables = syllables(word);
+
+    const haikuTooManySyllables = currentSyllables > 0 && finishedHaiku();
+    const haikuLineExceeded = currentLineSyllables >= lineSyllables[currentLine];
+    const lineTooManySyllables = !finishedHaiku() && haikuLineExceeded;
     if (haikuTooManySyllables || lineTooManySyllables) {
       result.formattedHaiku = '';
       return result;
     }
 
-    const word = wordsWithPunctuation[i];
-    const currentSyllables = syllables(word);
-
     currentLineSyllables += currentSyllables;
     result.formattedHaiku += word;
 
     const lastWord = i === wordsWithPunctuation.length - 1;
-    if ((currentSyllables > 0 || lastWord) && currentLineSyllables === lineSyllables[currentLine]) {
+    const canEndLine = (currentSyllables > 0 || lastWord);
+    const haikuLineFilled = currentLineSyllables === lineSyllables[currentLine];
+    let addNewline = false;
+    if (canEndLine && !finishedHaiku() && haikuLineFilled) {
       // Reached end of the haiku's line
       currentLine += 1;
       currentLineSyllables = 0;
-      if (currentLine < lineSyllables.length) result.formattedHaiku += '\n';
-    } else {
+
+      if (!finishedHaiku()) {
+        addNewline = true;
+      }
+    }
+
+    if (addNewline) {
+      result.formattedHaiku += '\n';
+    } else if (!lastWord) {
       result.formattedHaiku += ' ';
     }
   }
