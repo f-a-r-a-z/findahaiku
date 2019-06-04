@@ -21,6 +21,10 @@ const testCases = [
   { title: 'should retain punctuation in the middle of words',
     input: "I didn't do it, I swear! Please don't let this be! I won't forgive this...",
     returns: "I didn't do it,\nI swear! Please don't let this be!\nI won't forgive this..." },
+
+  { title: 'should remove newlines',
+    input: "I\ndidn't\ndo it, I\nswear! Please don't let this be! I won't forgive this...",
+    returns: "I didn't do it,\nI swear! Please don't let this be!\nI won't forgive this..." },
 ];
 
 describe('findahaiku', function() {
