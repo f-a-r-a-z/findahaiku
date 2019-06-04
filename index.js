@@ -2,45 +2,49 @@ module.exports = {
   analyzeText,
 };
 
-// cmu-pronouncing-dictionary uses ARPABET phonetic transcription
-// Read more: https://en.wikipedia.org/wiki/ARPABET
-const pronounciations = require('cmu-pronouncing-dictionary');
+const syllables = require('syllables');
+const extractwords = require('extractwords');
 
 function analyzeText(sentence) {
   const result = { isHaiku: false, formattedHaiku: '' };
+  if (cannotBeHaiku(sentence)) return result;
 
-  const wordArray = sentence.split(' ') || [];
-
-  if (wordArray.length < 3 || wordArray.length > 17) return result; // Cannot be a haiku
-
-  const cleanedWords = wordArray.map(cleanWord);
-  const cleanedWordsSyllables = cleanedWords.map(getSyllables);
-
-  // If a word is unrecognized, a haiku cannot be made
-  if (cleanedWordsSyllables.includes(0)) return result;
-
+  const wordsWithPunctuation = extractwords(sentence, { punctuation: true });
   let currentLineSyllables = 0;
   let currentLine = 0;
   const lineSyllables = [5, 7, 5];
+  let i;
 
-  for (let i = 0; i < cleanedWordsSyllables.length; i += 1) {
-    currentLineSyllables += cleanedWordsSyllables[i];
-    result.formattedHaiku += wordArray[i];
+  for (i = 0; i < wordsWithPunctuation.length; i += 1) {
+    const haikuTooManySyllables = currentLine >= lineSyllables.length;
+    const lineTooManySyllables = currentLineSyllables >= lineSyllables[currentLine];
+    if (haikuTooManySyllables || lineTooManySyllables) {
+      result.formattedHaiku = '';
+      return result;
+    }
 
-    if (currentLineSyllables === lineSyllables[currentLine]) {
+    const word = wordsWithPunctuation[i];
+    const currentSyllables = syllables(word);
+
+    currentLineSyllables += currentSyllables;
+    result.formattedHaiku += word;
+
+    const lastWord = i === wordsWithPunctuation.length - 1;
+    if ((currentSyllables > 0 || lastWord) && currentLineSyllables === lineSyllables[currentLine]) {
       // Reached end of the haiku's line
       currentLine += 1;
       currentLineSyllables = 0;
       if (currentLine < lineSyllables.length) result.formattedHaiku += '\n';
-    } else if (currentLineSyllables >= lineSyllables[currentLine]) {
-      // Haiku line has too many syllables
-      break;
     } else {
       result.formattedHaiku += ' ';
     }
   }
 
-  if (currentLine === lineSyllables.length && currentLineSyllables === 0) {
+  const lastLineOfHaiku = currentLine === lineSyllables.length;
+  const noLeftoverSyllables = currentLineSyllables === 0;
+  const allWordsAddedToHaiku = i === wordsWithPunctuation.length;
+
+  if (lastLineOfHaiku && noLeftoverSyllables && allWordsAddedToHaiku) {
     result.isHaiku = true;
   } else {
     result.formattedHaiku = '';
@@ -49,23 +53,14 @@ function analyzeText(sentence) {
   return result;
 }
 
-//
-//      Helper Functions
-//
+function cannotBeHaiku(sentence) {
+  if (/\d/.test(sentence)) return true; // No support for digits
 
-// Removes input that will prevent word from being recognised in dictionary
-function cleanWord(word = '') {
-  return removePunctuation(word).toLowerCase();
-}
+  const words = extractwords(sentence);
+  if (words.length < 3 || words.length > 17) return true;
 
-// Removes punctuation at the end and start of a word
-// Punctuation in the middle of word may be neccessary to recognise the word e.g. isn't vs isnt
-function removePunctuation(word) {
-  return word.replace(/^(\W+)|(\W+)$/g, '');
-}
+  const wordSyllables = words.map(syllables);
+  if (wordSyllables.includes(0)) return true; // Non-dictionary word
 
-function getSyllables(word = '') {
-  const phoneticTranscription = pronounciations[word] || '';
-  const stresses = phoneticTranscription.match(/[0-2]/g) || [];
-  return stresses.length;
+  return false;
 }

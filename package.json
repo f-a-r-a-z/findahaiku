@@ -32,7 +32,8 @@
   "author": "f-a-r-a-z",
   "license": "MIT",
   "dependencies": {
-    "cmu-pronouncing-dictionary": "^1.0.3"
+    "extractwords": "^1.1.1",
+    "syllables": "^1.0.0"
   },
   "devDependencies": {
     "eslint": "^5.12.0",
